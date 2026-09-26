@@ -103,7 +103,7 @@ function animateWorld(t) {
   let dx = Number(keys.has('d') || keys.has('arrowright')) - Number(keys.has('a') || keys.has('arrowleft'));
   let dy = Number(keys.has('s') || keys.has('arrowdown')) - Number(keys.has('w') || keys.has('arrowup'));
   if (era==='college') tickCampusCat(dt, t);
-  if (!transporting && !editor.open && !$('#study-notes').open && !$('#campus-video').open && !world.classList.contains('opening-computer')) {
+  if (!transporting && !editor.open && !$('#study-notes').open && $('#campus-video').hidden && !world.classList.contains('opening-computer')) {
     if (dx || dy) {
       destination = null;
       const length = Math.hypot(dx, dy);
@@ -155,7 +155,7 @@ function placePad() {
 }
 function tickPad(moving) {
   const pad = $('#chapter-pad');
-  if (transporting || !padNames[chapterKey()] || editor.open || $('#study-notes').open || $('#campus-video').open || world.classList.contains('opening-computer')) {
+  if (transporting || !padNames[chapterKey()] || editor.open || $('#study-notes').open || !$('#campus-video').hidden || world.classList.contains('opening-computer')) {
     cancelPad();
     placePad();
     return;
@@ -369,7 +369,7 @@ function closeGame(toTimeline=true) {
   } else origin?.focus({preventScroll:true});
 }
 $('#close-game').addEventListener('click', closeGame);
-game.addEventListener('cancel', e => {e.preventDefault(); closeGame();});
+game.addEventListener('cancel', e => {e.preventDefault(); if (!$('#campus-video').hidden) {closeCampusVideo(); return;} closeGame();});
 function nearestObject() {
   let best = null, distance = 14;
   for (const [name, point] of Object.entries(eras[era].objects)) {
@@ -509,7 +509,7 @@ function showCampusPose(img, pose, direction) {
 }
 const campusCat = {x:48, min:32, max:72, y:82, state:'walk', time:4.2, direction:1, next:1, element:document.getElementById('campus-cat')};
 function tickCampusCat(dt, t) {
-  const frozen = paused || $('#campus-video').open || $('#study-notes').open;
+  const frozen = paused || !$('#campus-video').hidden || $('#study-notes').open;
   const sprite = campusCat.element.querySelector('img');
   let pose = 'walkA';
   if (paused) {campusCat.state='sit'; pose='sit';}
@@ -535,7 +535,7 @@ function tickCampusCat(dt, t) {
 const campusVideoCat = {x:18, direction:1, mode:'walk', until:0};
 let campusVideoFrame=0, campusVideoLast=0;
 function tickCampusVideoCat(t) {
-  if (!$('#campus-video').open) return;
+  if ($('#campus-video').hidden) return;
   const dt=Math.min((t-campusVideoLast)/1000||0,.05); campusVideoLast=t;
   const img=document.getElementById('campus-video-cat');
   let pose='sit';
@@ -563,11 +563,11 @@ function openCampusVideo() {
   $('#speech').textContent='';
   $('#action-effect').className='';
   $('#action-effect').replaceChildren();
-  const dialog=$('#campus-video');
-  const frame=dialog.querySelector('iframe');
-  if (!dialog.open) {
+  const panel=$('#campus-video');
+  const frame=panel.querySelector('iframe');
+  if (panel.hidden) {
     frame.src='https://www.youtube-nocookie.com/embed/OAK4RZkAlgQ?autoplay=1&mute=1';
-    dialog.showModal();
+    panel.hidden=false;
     campusVideoLast=0;
     campusVideoCat.mode='walk';
     campusVideoCat.until=performance.now()+3400;
@@ -577,16 +577,16 @@ function openCampusVideo() {
   $('#close-campus-video').focus();
 }
 function closeCampusVideo(restoreFocus=true) {
-  const dialog=$('#campus-video');
-  const frame=dialog.querySelector('iframe');
+  const panel=$('#campus-video');
+  const frame=panel.querySelector('iframe');
   if (frame.src && frame.src!=='about:blank') frame.src='about:blank';
   cancelAnimationFrame(campusVideoFrame);
-  if (!dialog.open) return;
-  dialog.close();
+  if (panel.hidden) return;
+  panel.hidden=true;
   if (restoreFocus && game.open) $('#campus-cat').focus({preventScroll:true});
 }
 $('#close-campus-video').addEventListener('click', ()=>closeCampusVideo());
-$('#campus-video').addEventListener('cancel', e=>{e.preventDefault(); closeCampusVideo();});
+$('#campus-video-dismiss').addEventListener('click', ()=>closeCampusVideo());
 
 // Resume evidence uses the same visible career source as the journey.
 document.querySelectorAll('[data-resume-source]').forEach(folder => {
