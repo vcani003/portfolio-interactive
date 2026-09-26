@@ -1,0 +1,9 @@
+.DS_Store
+tmp/
+node_modules/
+data/
+__pycache__/
+*.pyc
+.tmp-venv/
+.cursor/debug-*.log
+site/dist/_*

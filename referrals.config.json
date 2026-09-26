@@ -1,0 +1,19 @@
+{
+  "notificationCooldownSeconds": 1800,
+  "referrals": [
+    {
+      "referralId": "8K3M",
+      "company": "Chess.com",
+      "role": "Frontend Engineer",
+      "easterEgg": "wizard-chess",
+      "notificationsEnabled": true
+    }
+  ],
+  "eggs": [
+    {
+      "id": "wizard-chess",
+      "passwordSha256": "3437cdca03d3809efc41618d6c7adc4e7b7e282687701e3dd04f0cc2256c98ff",
+      "enabled": true
+    }
+  ]
+}
