@@ -15,7 +15,7 @@ from datetime import datetime
 from hashlib import sha256
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import unquote, urlparse
+from urllib.parse import parse_qsl, unquote, urlencode, urlparse
 
 ROOT = Path(__file__).resolve().parent
 DIST = ROOT / "site" / "dist"
@@ -215,7 +215,10 @@ class Handler(BaseHTTPRequestHandler):
         jar = cookies_from(self.headers.get("Cookie"))
         session_id = jar.get("pf_session") or secrets.token_hex(16)
         self.send_response(302)
-        self.send_header("Location", "/")
+        query = dict(parse_qsl(urlparse(self.path).query))
+        if referral_for(token, config):
+            query["ref"] = token
+        self.send_header("Location", "/" + ("?" + urlencode(query) if query else ""))
         self.send_header("Cache-Control", "no-store")
         if referral_for(token, config):
             self.send_header(

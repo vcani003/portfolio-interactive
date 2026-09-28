@@ -51,6 +51,19 @@ def main():
         }
     )
     CONFIG.write_text(json.dumps(config, indent=2) + "\n", encoding="utf-8")
+    landing = ROOT / "site" / "dist" / "j" / referral_id / "index.html"
+    landing.parent.mkdir(parents=True, exist_ok=True)
+    landing.write_text(f'''<!doctype html>
+<meta charset="utf-8">
+<title>Veronica Canido</title>
+<script>
+const target = new URL('../../', location.href);
+target.search = location.search;
+target.searchParams.set('ref', '{referral_id}');
+location.replace(target.href);
+</script>
+<p><a href="../../?ref={referral_id}">Continue to Veronica’s portfolio</a></p>
+''', encoding="utf-8")
     print(f"Application URL: http://127.0.0.1:4174/j/{referral_id}")
     if args.password and args.egg not in eggs:
         print("Password: (the one you just set; it is stored only as a hash)")

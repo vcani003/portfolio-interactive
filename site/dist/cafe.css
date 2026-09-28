@@ -81,3 +81,7 @@
 @media(max-width:640px){#quick-panel.is-cafe .cafe-tools-footer{flex-wrap:wrap;gap:8px}.cafe-footer-brand{width:100%}.cafe-footer-brand span{display:none}.cafe-login-form{flex-basis:100%;gap:8px}.cafe-login-form input{height:44px;font-size:13px}.cafe-login{min-height:44px}.cafe-footer-brand strong{font-size:15px}}
 @media(max-height:650px){#quick-panel.is-cafe .cafe-footer-brand,#quick-panel.is-cafe .cafe-footer-cat{display:none}#quick-panel.is-cafe .cafe-tools-footer{margin-bottom:8px;padding:7px 12px;min-height:58px}}
 @media(max-height:650px){#quick-panel.is-cafe .quick-panel-header{padding:12px 18px}#quick-panel.is-cafe .quick-panel-header h2{font-size:25px}#quick-panel.is-cafe .quick-panel-tabs{padding-top:8px;padding-bottom:8px}}
+
+.cafe-login-form{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:6px 12px}
+.cafe-phrase-field{display:grid;gap:4px;font:13px/1.5 var(--sans);color:#343b40}
+#cafe-phrase-notice{grid-column:1/-1;margin:0;font:12px/1.5 var(--sans);color:#343b40}
