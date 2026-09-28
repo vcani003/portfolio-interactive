@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "date": "2026-09-28",
+  "status": "validated-awaiting-fresh-session-discovery",
+  "genericSkills": [
+    "team-coordinator",
+    "team-experience-designer",
+    "team-evidence-researcher",
+    "team-voice-director",
+    "team-clarity-editor",
+    "team-interaction-engineer",
+    "team-illustration-designer",
+    "team-experience-reviewer",
+    "team-visual-fidelity-reviewer",
+    "team-regression-tester"
+  ],
+  "specialists": [
+    "portfolio-coordinator",
+    "portfolio-story",
+    "portfolio-recruiter-editor",
+    "portfolio-world-designer",
+    "portfolio-gameplay",
+    "portfolio-character-designer",
+    "portfolio-setting-reviewer",
+    "portfolio-recruiter-reviewer",
+    "migration-continuity"
+  ],
+  "legacy": {
+    "voice-sentiment-director": "portfolio-story",
+    "recruiter-editor": "portfolio-recruiter-editor",
+    "visual-hierarchy": "portfolio-world-designer"
+  },
+  "sectionDestinations": {
+    "Direction and authorization": "specialist/shared/governance.md",
+    "Agent responsibilities": "specialist/shared/governance.md",
+    "Significant-change activity log": "specialist/shared/governance.md",
+    "Recruiter standard": "specialist/shared/experience.md",
+    "Content and discoverability": "specialist/shared/experience.md",
+    "Latest landing direction": "specialist/shared/experience.md",
+    "Overworld direction": "specialist/shared/experience.md",
+    "Quick View overlay": "specialist/shared/experience.md",
+    "Character motion defaults": "specialist/shared/experience.md",
+    "Setting fidelity": "specialist/shared/art.md",
+    "Art model preference": "specialist/shared/art.md",
+    "Illustrated world visual gate": "specialist/shared/art.md"
+  },
+  "baselineHashes": {
+    "recruiter-editor.md.txt": "9c8a6c50aa90b9b6c5da1f7124f617b76a6647d0f37e8029f393f64e3147d292",
+    "voice-sentiment-director.md.txt": "ad153b1f0876d6aa6686266c9558e67719a0bd792caed4cedc57759ec66e031c",
+    "AGENTS.md.txt": "a773db973197d1cdc9360e535f47ca49b4f7361adcbf06f05742445e73e72ba3",
+    "visual-hierarchy.md.txt": "e05ea40f52e4b23dd8b48779ea2f7ac932d969039055e551c654a92a7b3ae8c6"
+  }
+}
