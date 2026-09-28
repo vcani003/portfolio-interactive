@@ -1,0 +1,4 @@
+.dev-storybook-bar{max-width:1440px;margin:0 auto;padding:8px 5%;text-align:right;border-bottom:1px solid var(--line)}
+.dev-storybook-link{display:inline-block;padding:7px 0;color:#354537;font:600 12px/1.5 var(--sans);text-decoration:underline;text-underline-offset:3px}
+.dev-storybook-link:hover{color:#6a7358}
+@media print{.dev-storybook-bar{display:none!important}}

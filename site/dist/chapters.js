@@ -9,7 +9,8 @@
   };
   const texts = (root, selector) => Array.from(root.querySelectorAll(selector), text).filter(Boolean);
   const experience = (anchor, heading, sectionHeadings) => {
-    const root = document.getElementById(anchor);
+    const article = document.getElementById(anchor);
+    const root = article.querySelector('.cafe-story') || article;
     const title = text(root.querySelector('h3'));
     return {
       title,
@@ -17,7 +18,7 @@
       heading,
       filename: `${anchor}.md`,
       anchor,
-      summary: text(root.querySelector('.role + p')),
+      summary: texts(root, '.role ~ p').join(' '),
       skills: texts(root, '.tags span'),
       memories: [],
       sections: texts(root, 'li').map((body, index) => ({

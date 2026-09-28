@@ -12,10 +12,10 @@ const eras = {
     alt: 'A corporate cubicle bay with Vero’s workstation, a desk succulent, espresso candy, welcome balloons and a neighboring coworker.',
     minY: 56, maxY: 90,
     objects: {
-      plant: {x: 23.5, y: 25, walkX: 26, walkY: 60},
-      computer: {x: 34, y: 22, walkX: 37, walkY: 60},
-      snack: {x: 47, y: 27, walkX: 48, walkY: 60},
-      coworker: {x: 86, y: 23, walkX: 79, walkY: 60}
+      plant: {x: 25, y: 35.7, walkX: 26, walkY: 64},
+      computer: {x: 35, y: 33, walkX: 37, walkY: 64},
+      snack: {x: 46, y: 36.5, walkX: 48, walkY: 64},
+      coworker: {x: 8.4, y: 20.2, walkX: 12, walkY: 64}
     }
   },
   internship: {
@@ -30,18 +30,19 @@ const chapterData = window.portfolioChapters || {};
 const jpmcDocuments = $('.editor-document').innerHTML;
 const sceneSpecs = {
  college: {image:'assets/chapter-college.png', computer:{x:15,y:31.5,walkX:22,walkY:65}, extra:{x:92,y:40.5,walkX:83,walkY:65}, action:'View my notes', response:'MDC & FIU'},
- fortress: {image:'assets/chapter-fortress.png', computer:{x:24,y:35,walkX:27,walkY:68}},
+ fortress: {image:'assets/fortress-room-v3.png', computer:{x:35,y:36,walkX:32,walkY:79}},
  cafe: {image:'assets/chapter-cafe.png', computer:{x:30,y:23,walkX:30,walkY:65}, extra:{x:52.5,y:24,walkX:53,walkY:65}, action:'Open recipe notes', response:''},
  gamedev: {image:'assets/chapter-gamedev.png', computer:{x:34.5,y:19,walkX:35,walkY:65}, extra:{x:20.6,y:26.3,walkX:23,walkY:65}, action:'Tap a rhythm', response:'♪  ♫  ♪'}
 };
 for (const [id, spec] of Object.entries(sceneSpecs)) {
  const data = chapterData[id];
  if (!data) continue;
- const alts = {fortress:'A cooler gray home den with hardwood floors, Levi at the desk, Lumi and Luci nearby, and a backyard oak with storybook wildlife.'};
+ const alts = {fortress:'A white-walled home den with two adjacent desks, Levi seated at his own desk, Lumi and Luci on warm acacia floors, and a centered backyard window with an oak on the left.'};
  const objects = {computer:spec.computer};
  if (spec.extra) objects.coworker = spec.extra;
  eras[id] = {image:spec.image,title:data.title,label:data.label,alt:alts[id] || data.label + ' — an imaginative illustrated setting.',minY:65,maxY:91,objects};
 }
+eras.fortress.minY=79;eras.fortress.maxY=96;eras.fortress.maxX=92;eras.fortress.padX=90;
 let era = 'college';
 eras.college.objects.cat = {x:48, y:82, walkX:48, walkY:82};
 function chapterKey() { return era === 'internship' ? 'fulltime' : era; }
@@ -75,12 +76,12 @@ setMotion(paused);
 reducedMotion.addEventListener('change', e => setMotion(e.matches));
 
 function renderWorld() {
-  const width = Math.max(scene.clientWidth, scene.clientHeight * 1.5);
+  const width = ['fortress','fulltime'].includes(era) ? scene.clientHeight * 1.5 : Math.max(scene.clientWidth, scene.clientHeight * 1.5);
   const height = width / 1.5;
   world.style.width = `${width}px`;
   world.style.height = `${height}px`;
   const camera = (width - scene.clientWidth) * Math.max(0, Math.min(1, (x - 15) / 70));
-  world.style.left = `${-camera}px`;
+  world.style.left = `${width < scene.clientWidth ? (scene.clientWidth - width) / 2 : -camera}px`;
   world.style.top = `${Math.min(0, (scene.clientHeight - height) * Math.max(.1, Math.min(.9, (y-58)/38)))}px`;
   player.style.left = `${x}%`;
   player.style.top = `${y}%`;
@@ -103,7 +104,7 @@ function animateWorld(t) {
   let dx = Number(keys.has('d') || keys.has('arrowright')) - Number(keys.has('a') || keys.has('arrowleft'));
   let dy = Number(keys.has('s') || keys.has('arrowdown')) - Number(keys.has('w') || keys.has('arrowup'));
   if (era==='college') tickCampusCat(dt, t);
-  if (!transporting && !editor.open && !$('#study-notes').open && $('#campus-video').hidden && !world.classList.contains('opening-computer')) {
+  if (!transporting && !editor.open && !$('#design-note').open && !$('#study-notes').open && $('#campus-video').hidden && !world.classList.contains('opening-computer')) {
     if (dx || dy) {
       destination = null;
       const length = Math.hypot(dx, dy);
@@ -120,7 +121,7 @@ function animateWorld(t) {
       }
     }
   }
-  x = Math.max(15, Math.min(85, x));
+  x = Math.max(15, Math.min(eras[era].maxX || 85, x));
   y = Math.max(eras[era].minY, Math.min(eras[era].maxY, y));
   const moving = Math.abs(previousX - x) + Math.abs(previousY - y) > .01;
   if (Math.abs(previousX - x) > .01) facing = x > previousX ? 1 : -1;
@@ -142,26 +143,34 @@ function cancelPad() {
   pad.classList.remove('holding', 'is-active');
   stopTransitions();
 }
+function padCenterX() {return eras[era].padX || 79.5;}
 function placePad() {
   const pad = $('#chapter-pad');
   const name = padNames[chapterKey()];
   pad.hidden = !name || transporting;
   if (pad.hidden) return;
   const floor = eras[era].maxY;
-  pad.style.left = '79.5%';
+  pad.style.left = `${padCenterX()}%`;
   pad.style.top = `${floor - 2}%`;
-  pad.style.zIndex = String(Math.max(1, Math.round(floor) - 1));
-  pad.querySelector('.pad-label').textContent = name;
+  pad.style.zIndex = String(Math.max(1, Math.round(floor) - 10));
+  pad.querySelector('.pad-label').textContent = `Next: ${name}`;
+  pad.setAttribute('aria-label', `Walk into the portal to ${name}`);
 }
+$('#chapter-pad').addEventListener('click', () => {
+  if (transporting || !padNames[chapterKey()]) return;
+  keys.clear();
+  destination = {x:padCenterX(), y:eras[era].maxY - 2};
+  scene.focus({preventScroll:true});
+});
 function tickPad(moving) {
   const pad = $('#chapter-pad');
-  if (transporting || !padNames[chapterKey()] || editor.open || $('#study-notes').open || !$('#campus-video').hidden || world.classList.contains('opening-computer')) {
+  if (transporting || !padNames[chapterKey()] || editor.open || $('#design-note').open || $('#study-notes').open || !$('#campus-video').hidden || world.classList.contains('opening-computer')) {
     cancelPad();
     placePad();
     return;
   }
   const floor = eras[era].maxY;
-  const onPad = x >= 74 && x <= 85 && y >= floor - 8 && y <= floor + 0.2;
+  const onPad = Math.abs(x-padCenterX()) <= 5.5 && y >= floor - 8 && y <= floor + 0.2;
   pad.classList.toggle('is-active', onPad);
   const still = onPad && !moving && !destination && keys.size === 0;
   if (still && !padTimer) {
@@ -179,7 +188,9 @@ function tickPad(moving) {
 function beginTransport() {
   padTimer = 0;
   const next = chapterOrder[chapterOrder.indexOf(chapterKey()) + 1];
-  if (!next || transporting) return;
+  const floor = eras[era].maxY;
+  // Recheck at the timer boundary too: input or a modal can change before the next frame.
+  if (!next || transporting || !game.open || destination || keys.size || Math.abs(x-padCenterX()) > 5.5 || y < floor - 8 || y > floor + .2 || editor.open || $('#design-note').open || $('#study-notes').open || !$('#campus-video').hidden) {cancelPad(); return;}
   transporting = true;
   stopWalking();
   cancelPad();
@@ -202,6 +213,27 @@ world.addEventListener('transitionend', event => {
     transporting = false;
   }
 });
+// Approved household stays separate from the room and from semantic click targets.
+let fortressHouseholdLoad;
+function paintFortressHousehold() {
+ const canvas=$('#fortress-household');
+ if(fortressHouseholdLoad)return fortressHouseholdLoad;
+ const load=src=>new Promise((resolve,reject)=>{const im=new Image();im.onload=()=>resolve(im);im.onerror=reject;im.src=src;});
+ fortressHouseholdLoad=Promise.all(['assets/fortress-levi-chair-v3.png','assets/fortress-levi-poses-v1.png','assets/kitten-poses.png'].map(load)).then(([chair,levi,cats])=>{
+  const ctx=canvas.getContext('2d');ctx.clearRect(0,0,1536,1024);
+  ctx.drawImage(chair,204,62,896,1171,1060,385,268.8,351.3);
+  ctx.drawImage(levi,1105,188,373,739,1058,196,257.37,509.91);
+  const cat=(row,direction,dx,dy,shadowX,shadowY)=>{
+   ctx.save();ctx.fillStyle='rgba(51,31,15,.19)';ctx.filter='blur(2px)';ctx.beginPath();ctx.ellipse(shadowX,shadowY,31,4,0,0,Math.PI*2);ctx.fill();ctx.restore();
+   // Same quiet frame4, row and 380×362 centered canvas layout as home paintCat().
+   ctx.save();ctx.translate(dx+76,dy);ctx.scale(direction*.4,.4);
+   ctx.drawImage(cats,1558,row*362,246,362,-123,0,246,362);ctx.restore();
+  };
+  cat(0,1,650,651,721,789);cat(1,-1,900,663,973,801);
+  canvas.dataset.ready='true';
+ }).catch(()=>{canvas.dataset.ready='failed';fortressHouseholdLoad=null;});
+ return fortressHouseholdLoad;
+}
 function setEra(value, fromPad) {
   if (!fromPad) {
     transporting = false;
@@ -211,9 +243,11 @@ function setEra(value, fromPad) {
   era = value;
   $('#desk-photos').hidden = era !== 'fulltime';
   $('#design-credit').hidden = era !== 'fortress';
-  $('#guest-levi').hidden = era !== 'fortress';
-  $('#guest-lumi').hidden = era !== 'fortress';
-  $('#guest-luci').hidden = era !== 'fortress';
+  $('#fortress-household').hidden = era !== 'fortress';
+  if(era === 'fortress') paintFortressHousehold();
+  $('#guest-levi').hidden = true;
+  $('#guest-lumi').hidden = true;
+  $('#guest-luci').hidden = true;
   if (era !== 'fortress' && $('#design-note').open) $('#design-note').close();
   if (era !== 'college' && $('#study-notes').open) $('#study-notes').close();
   if (era !== 'college') closeCampusVideo(false);
@@ -221,7 +255,7 @@ function setEra(value, fromPad) {
   clearTimeout(effectTimer); clearTimeout(editorTimer);
   $('#speech').textContent = ''; $('#action-effect').className = ''; $('#action-effect').replaceChildren();
   world.classList.remove('opening-computer');
-  x = era === 'college' ? 25 : 47; y = era === 'internship' ? 90 : 87;
+  x = era === 'college' ? 25 : era === 'fortress' ? 22 : 47; y = era === 'internship' ? 90 : era === 'fortress' ? 91 : 87;
   updateDocuments();
   const data = chapterData[era];
   $('#chapter-heading').textContent = data?.heading || 'JPMORGAN CHASE / TAMPA';
@@ -336,7 +370,71 @@ document.addEventListener('keydown', e => {
   toggleJourneyMute();
 });
 syncJourneySound();
+// Original CSS adaptation of Motion's Curtains: Blinds (credited in the footer).
+let entryCurtain = null;
+function clearEntryCurtain() {
+ const curtain = entryCurtain;
+ if (!curtain) return;
+ entryCurtain = null;
+ curtain.remove();
+ stopWalking();
+}
+async function revealChapter(value, source) {
+ if (entryCurtain) return;
+ if (game.open || reducedMotion.matches || !('showPopover' in HTMLElement.prototype)) {
+  openChapter(value, source);
+  return;
+ }
+ const curtain = document.createElement('div');
+ curtain.className = 'entry-curtain';
+ curtain.setAttribute('popover', 'manual');
+ curtain.setAttribute('aria-hidden', 'true');
+ const rows = Math.max(6, Math.ceil(innerHeight / 64));
+ curtain.style.setProperty('--slats', rows);
+ curtain.replaceChildren(...Array.from({length:rows}, () => document.createElement('span')));
+ document.body.append(curtain);
+ entryCurtain = curtain;
+ const phase = async name => {
+  curtain.dataset.phase = name;
+  // Flush the new phase after moving between top-layer containers.
+  getComputedStyle(curtain.firstElementChild).animationName;
+  // A deadline also clears the cover if animations are disabled or interrupted.
+  let deadline;
+  await Promise.race([
+   Promise.allSettled(curtain.getAnimations({subtree:true}).map(animation => animation.finished)),
+   new Promise(resolve => {deadline = setTimeout(resolve, 450);})
+  ]);
+  clearTimeout(deadline);
+ };
+ try {
+  curtain.showPopover();
+  await phase('cover');
+  if (entryCurtain !== curtain) return;
+  openChapter(value, source);
+  // The new modal occupies the top layer; lift the curtain above it in the same task.
+  curtain.hidePopover();
+  curtain.showPopover();
+  await phase('reveal');
+ } finally {
+  if (entryCurtain === curtain) clearEntryCurtain();
+ }
+}
+// Keep keyboard and pointer input from leaking into a chapter while it is covered.
+for (const type of ['keydown', 'pointerdown', 'click', 'wheel']) {
+ document.addEventListener(type, event => {
+  if (!entryCurtain) return;
+  event.preventDefault();
+  event.stopImmediatePropagation();
+  if (type === 'keydown' && event.key === 'Escape') {
+   clearEntryCurtain();
+   if (game.open) closeGame();
+  }
+ }, {capture:true, passive:false});
+}
 function enterChapter(value, source) {
+ void revealChapter(value, source);
+}
+function openChapter(value, source) {
  if (quickDialog.open) {source=quickReturnFocus;closeQuickView();}
  if (editor.open) editor.close();
  const opening = !game.open;
@@ -347,6 +445,7 @@ document.querySelectorAll('[data-play], [data-chapter]').forEach(b=>b.addEventLi
 $('#previous-chapter').addEventListener('click',()=>{const i=chapterOrder.indexOf(chapterKey());if(i>0)setEra(chapterOrder[i-1]);});
 $('#next-chapter').addEventListener('click',()=>{const i=chapterOrder.indexOf(chapterKey());if(i<chapterOrder.length-1)setEra(chapterOrder[i+1]);else {closeGame(false);location.hash='contact';$('#contact').tabIndex=-1;$('#contact').focus();}});
 function closeGame(toTimeline=true) {
+  clearEntryCurtain();
   if($('#design-note').open)$('#design-note').close();
   if($('#photo-viewer').open)$('#photo-viewer').close();
   if($('#study-notes').open)$('#study-notes').close();
@@ -502,15 +601,23 @@ function tickCats(t) {
   requestAnimationFrame(tickCats);
 }
 catStates.forEach(paintCat);requestAnimationFrame(tickCats);
-const campusCatPoses = {stand:'assets/campus-cat-stand.png', walkA:'assets/campus-cat-walk-a.png', walkB:'assets/campus-cat-walk-b.png', sit:'assets/campus-cat-sit.png', belly:'assets/campus-cat-belly.png'};
-function showCampusPose(img, pose, direction) {
-  if (img.dataset.pose !== pose) {img.dataset.pose = pose; img.src = campusCatPoses[pose];}
-  img.style.transform = `scaleX(${direction})`;
+const campusCatPoses = {stand:0, walkA:1, walkB:2, sit:3, belly:4};
+const campusCatAtlas = new Image();
+campusCatAtlas.src = 'assets/campus-cat-poses.png';
+function showCampusPose(canvas, pose, direction) {
+  if (campusCatAtlas.complete && campusCatAtlas.naturalWidth && canvas.dataset.pose !== pose) {
+    const context = canvas.getContext('2d');
+    const cellWidth = campusCatAtlas.naturalWidth / 5;
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.drawImage(campusCatAtlas, campusCatPoses[pose] * cellWidth, 180, cellWidth, 360, 0, 0, canvas.width, canvas.height);
+    canvas.dataset.pose = pose;
+  }
+  canvas.style.transform = `scaleX(${direction})`;
 }
 const campusCat = {x:48, min:32, max:72, y:82, state:'walk', time:4.2, direction:1, next:1, element:document.getElementById('campus-cat')};
 function tickCampusCat(dt, t) {
   const frozen = paused || !$('#campus-video').hidden || $('#study-notes').open;
-  const sprite = campusCat.element.querySelector('img');
+  const sprite = campusCat.element.querySelector('canvas');
   let pose = 'walkA';
   if (paused) {campusCat.state='sit'; pose='sit';}
   else if (!frozen) {
@@ -568,13 +675,14 @@ function openCampusVideo() {
   if (panel.hidden) {
     frame.src='https://www.youtube-nocookie.com/embed/OAK4RZkAlgQ?autoplay=1&mute=1';
     panel.hidden=false;
+    panel.showModal();
     campusVideoLast=0;
     campusVideoCat.mode='walk';
     campusVideoCat.until=performance.now()+3400;
     cancelAnimationFrame(campusVideoFrame);
     campusVideoFrame=requestAnimationFrame(tickCampusVideoCat);
   }
-  $('#close-campus-video').focus();
+  $('#close-campus-video').focus({preventScroll:true});
 }
 function closeCampusVideo(restoreFocus=true) {
   const panel=$('#campus-video');
@@ -582,21 +690,14 @@ function closeCampusVideo(restoreFocus=true) {
   if (frame.src && frame.src!=='about:blank') frame.src='about:blank';
   cancelAnimationFrame(campusVideoFrame);
   if (panel.hidden) return;
+  panel.close();
   panel.hidden=true;
+  stopWalking();
   if (restoreFocus && game.open) $('#campus-cat').focus({preventScroll:true});
 }
+$('#campus-video').addEventListener('cancel', e => {e.preventDefault(); closeCampusVideo();});
 $('#close-campus-video').addEventListener('click', ()=>closeCampusVideo());
 $('#campus-video-dismiss').addEventListener('click', ()=>closeCampusVideo());
-
-// Resume evidence uses the same visible career source as the journey.
-document.querySelectorAll('[data-resume-source]').forEach(folder => {
- const source=document.getElementById(folder.dataset.resumeSource);
- const evidence=folder.querySelector('.thread-evidence');
- evidence.append(source.querySelector('.role').cloneNode(true));
- const point=document.createElement('p');
- point.textContent=folder.dataset.resumeSource==='jpmc' ? source.querySelector('li:last-child').textContent : source.querySelector('li').textContent;
- evidence.append(point);
-});
 
 // Scroll-driven paper theatre. Scroll is never captured or required for chapter access.
 const trail = document.querySelector('.overworld-trail');
@@ -777,6 +878,7 @@ window.addEventListener('afterprint', () => {
 
 function selectQuickSection(id) {
  if(!quickNames[id])id='quick-view';
+ quickDialog.classList.toggle('is-cafe',id==='cafe');
  const isRole=['jpmc','fortress','cafe'].includes(id);
  quickSections.forEach(section=>section.hidden=section.id!==(isRole?'experience':id));
  document.querySelectorAll('#experience .experience-row').forEach(row=>row.hidden=isRole && row.id!==id);
@@ -904,7 +1006,7 @@ document.addEventListener('keyup',e=>{if(e.key.toLowerCase()==='e' && activeEntr
 document.querySelectorAll('[data-hold-entry]').forEach(button=>{
  button.setAttribute('role','button');
  button.setAttribute('aria-label','Hold to enter game');
- button.querySelector('span').innerHTML='Hold to <kbd>E</kbd>nter game';
+ button.querySelector('span').textContent='Hold to enter game';
  button.addEventListener('pointerdown',e=>{if(e.button!==0)return;beginEntryHold(button,{x:e.clientX,y:e.clientY},false);});
  button.addEventListener('pointermove',e=>{const point=activeEntryHold?.pointer;if(point&&Math.hypot(e.clientX-point.x,e.clientY-point.y)>12)cancelEntryHold();});
  button.addEventListener('pointerleave',cancelEntryHold);
@@ -974,7 +1076,7 @@ function closeStudyNotes() {
 $('#close-study-notes').addEventListener('click', closeStudyNotes);
 $('#study-notes').addEventListener('cancel', e => {e.preventDefault(); closeStudyNotes();});
 const designNote=$('#design-note');
-$('#design-credit').addEventListener('click',e=>{e.stopPropagation();stopWalking();designNote.showModal();$('#close-design-note').focus();});
+$('#design-credit').addEventListener('click',e=>{e.stopPropagation();stopWalking();cancelPad();designNote.showModal();$('#close-design-note').focus();});
 function closeDesignNote(){designNote.close();$('#design-credit').focus({preventScroll:true});}
 $('#close-design-note').addEventListener('click',closeDesignNote);
 designNote.addEventListener('cancel',e=>{e.preventDefault();closeDesignNote();});

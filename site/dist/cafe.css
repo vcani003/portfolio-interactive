@@ -1,0 +1,83 @@
+/* Café Quick View: the user's cream-and-sage reference, with real recipe content. */
+.cafe-symbols{position:absolute;width:0;height:0;overflow:hidden}
+#cafe .cafe-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(310px,365px);gap:30px;min-width:0;align-items:start}
+#cafe .cafe-story{min-width:0}
+#cafe .cafe-story>h3{font:400 36px/1.2 var(--serif);margin:0 0 12px}
+#cafe .cafe-story>.role{font-size:17px;margin:0 0 18px}
+#cafe .cafe-story>.role span{display:block;font-size:14px;margin-top:5px}
+#cafe .cafe-story>p:not(.role),#cafe .cafe-story>ul{font-size:16px;line-height:1.75;color:#615c59;margin:17px 0}
+#cafe .cafe-story>ul{padding-left:21px}
+#cafe .role-meta{border-right:1px solid #e4d9c8;padding-right:20px}
+#cafe .role-meta>span{font-size:18px;color:#282d39}
+#cafe .role-meta>p{font-size:10px;letter-spacing:1.5px}
+.cafe-highlights{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:22px 0 10px}
+.cafe-highlights>div{display:flex;align-items:flex-start;gap:10px;background:linear-gradient(125deg,#f5f1e7,#edece2);border:1px solid #e0dccc;border-radius:10px;padding:15px 11px;min-width:0}
+.cafe-highlights svg{width:27px;height:35px;flex:none;color:#49635a;margin-top:3px}
+.cafe-highlights p{margin:0!important;line-height:1.4}
+.cafe-highlights strong{display:block;font:400 23px/1.3 var(--serif);color:#214437;letter-spacing:-.5px}
+.cafe-highlights span{display:block;font-size:9px;text-transform:uppercase;letter-spacing:1px;margin-top:5px;color:#59554e}
+.cafe-highlights small{display:block;font-size:11px;line-height:1.5;color:#726e65;margin-top:4px}
+#cafe .tags{gap:7px;margin-top:0}
+#cafe .tags span{background:transparent;border:1px solid #ded9ce;border-radius:5px;padding:4px 10px;color:#414841;font-size:11px}
+.cafe-recipe{position:relative;margin-top:32px;background:linear-gradient(145deg,#fffdf8,#f8f3ea);border:1px solid #e7ddcf;border-radius:23px;padding:20px;box-shadow:0 12px 35px #6550391c,0 2px 8px #6550390d;min-width:0;color:#343b40}
+.cafe-peeking-cat{position:absolute;right:21px;top:-43px;width:93px;height:63px;color:#755944;z-index:-0}
+.recipe-heading{position:relative;display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:13px;border-bottom:1px solid #e8dfd3;padding:0 0 14px;background:#fcf8f0}
+.recipe-sample-label{font-size:8px;letter-spacing:1.3px;color:#817567}
+.recipe-intro{display:grid;grid-template-columns:115px minmax(0,1fr);gap:16px;margin:17px 0}
+.recipe-intro figure{margin:0;min-width:0}
+.recipe-intro img{display:block;width:100%;height:151px;object-fit:cover;border-radius:14px;background:#e7ddcf}
+.recipe-intro figcaption{font-size:9px;line-height:1.4;color:#797064;margin-top:5px;text-align:center}
+.recipe-intro h4{font:400 23px/1.2 var(--serif);margin:6px 0 10px;color:#262d28}
+.recipe-badges{display:flex;gap:6px;flex-wrap:wrap}
+.recipe-badges span{font-size:10px;line-height:1.4;background:#e7eadc;color:#5c6f4e;padding:4px 8px;border-radius:15px}
+.recipe-badges span+span{background:#f1ece4;color:#776b5f}
+.recipe-intro p{font-size:12px;line-height:1.6;color:#6c6760;margin:10px 0 0}
+.recipe-tabs{display:flex;border:1px solid #e0d8cb;border-radius:7px;margin-bottom:0;gap:0}
+.recipe-tabs[hidden]{display:none}
+.recipe-tabs button{background:transparent;border:0;border-bottom:3px solid transparent;padding:10px 5px 8px;flex:1;font-size:12px;min-height:43px;color:#434542}
+.recipe-tabs button[aria-selected=true]{color:#254e3c;border-bottom-color:#4a6859;font-weight:600}
+.recipe-pane{font-size:13px;line-height:1.65;min-height:268px}
+.recipe-pane h5{font-size:14px;margin:15px 0 10px}
+.cafe-recipe.is-enhanced .recipe-pane>h5{display:none}
+.recipe-pane[hidden]{display:none!important}
+.recipe-ingredients{margin:0}
+.recipe-ingredients>div{display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid #ebe2d5;padding:9px 0;min-height:49px}
+.recipe-ingredients>div:last-child{border:0}
+.recipe-ingredients dt{display:flex;align-items:center;gap:10px;font-size:12px}
+.recipe-ingredients dt span{width:31px;height:31px;display:grid;place-items:center;background:#eee8db;border-radius:7px;font-size:21px;flex:none}
+.recipe-ingredients dd{font-size:12px;margin:0;text-align:right;white-space:nowrap}
+.recipe-footnote{font-size:10px!important;color:#79736a;line-height:1.5!important;margin:8px 0 0!important}
+.recipe-pane ol{padding-left:24px;margin:18px 0}
+.recipe-pane li{padding-left:4px;margin:14px 0}
+.recipe-pane>p{margin:18px 0}
+#quick-panel.is-cafe{width:min(1400px,96vw);background:radial-gradient(ellipse at 75% 50%,#f3edde55,transparent 60%),#fcf8ef;max-height:94dvh}
+#quick-panel.is-cafe .quick-panel-header{padding:24px 32px}
+#quick-panel.is-cafe .quick-panel-header h2{font-size:36px;line-height:1.25}
+#quick-panel.is-cafe .quick-panel-tabs{padding:13px 32px}
+#quick-panel.is-cafe .quick-panel-content{max-height:none}
+#quick-panel.is-cafe .quick-panel-content>#experience{padding:34px 32px 24px!important}
+#quick-panel.is-cafe #cafe{display:grid;grid-template-columns:150px minmax(0,1fr);gap:30px;padding:0}
+#quick-panel.is-cafe>.term-prompt{display:none}
+.cafe-tools-footer{display:none}
+#quick-panel.is-cafe .cafe-tools-footer{display:flex;align-items:center;gap:24px;flex-shrink:0;margin:0 32px 20px;padding:12px 20px;background:linear-gradient(100deg,#f0ece2,#f9f4eb);border:1px solid #e1d9cc;border-radius:12px;overflow:hidden;min-height:77px}
+.cafe-footer-brand{display:flex;align-items:center;gap:14px;padding-right:25px;border-right:1px solid #ded6c7;flex-shrink:0}
+.cafe-footer-brand svg{width:52px;height:45px;color:#665d50}
+.cafe-footer-brand strong{display:block;font:400 20px/1.3 var(--serif)}
+.cafe-footer-brand span{display:block;font-size:8px;letter-spacing:2px;color:#74695d;margin-top:4px}
+.cafe-footer-caption{font-size:12px;color:#887b6d;flex:1}
+.cafe-login{background:#47665a;border-color:#47665a;color:white;min-width:138px;flex-shrink:0;font-size:13px}
+.cafe-footer-cat{margin-left:auto;color:#a89683;opacity:.65;height:45px;overflow:visible}
+.cafe-footer-cat svg{width:100px;height:70px;transform:rotate(-8deg)}
+@media(max-width:1150px){#quick-panel.is-cafe #cafe{grid-template-columns:1fr;gap:20px}#cafe .role-meta{display:flex;align-items:center;gap:15px;border:0;padding:0}#cafe .role-meta p{margin:0}.cafe-highlights strong{font-size:21px}.cafe-highlights>div{padding:12px 9px;gap:7px}.cafe-highlights svg{width:23px}}
+@media(max-width:800px){#cafe .cafe-body{grid-template-columns:1fr}.cafe-recipe{width:100%;max-width:460px;justify-self:center;margin:22px 0 4px}.cafe-footer-cat,.cafe-footer-caption{display:none}#quick-panel.is-cafe .cafe-tools-footer{justify-content:space-between;gap:12px}.cafe-footer-brand{padding:0;border:0}.cafe-footer-brand strong{font-size:17px}}
+@media(max-width:640px){#quick-panel.is-cafe .quick-panel-header{padding:16px}#quick-panel.is-cafe .quick-panel-header h2{font-size:27px}#quick-panel.is-cafe .quick-panel-tabs{padding:9px 14px}#quick-panel.is-cafe .quick-panel-content>#experience{padding:24px 18px!important}#cafe .cafe-story>h3{font-size:29px}#cafe .cafe-story>p:not(.role),#cafe .cafe-story>ul{font-size:15px;line-height:1.75}#cafe .cafe-highlights{grid-template-columns:1fr;gap:8px}.cafe-highlights>div{padding:12px 14px;gap:14px}.cafe-highlights p{display:grid;grid-template-columns:1fr 1fr;gap:0 12px;flex:1}.cafe-highlights strong{grid-row:1/3;align-self:center}.cafe-highlights small{margin:2px 0 0}.cafe-highlights span{margin:0}#quick-panel.is-cafe .cafe-tools-footer{margin:0 12px 12px;padding:10px 12px;min-height:65px}.cafe-footer-brand{gap:8px}.cafe-footer-brand svg{width:32px}.cafe-footer-brand strong{font-size:15px}.cafe-footer-brand span{font-size:7px;letter-spacing:1px}.cafe-login{min-width:94px;padding:10px 12px;gap:10px}.cafe-recipe{padding:16px}.recipe-intro{grid-template-columns:100px minmax(0,1fr);gap:12px}.recipe-intro h4{font-size:22px}}
+@media(max-width:360px){.recipe-intro{grid-template-columns:85px minmax(0,1fr)}.recipe-intro h4{font-size:20px}.recipe-intro img{height:138px}.cafe-highlights p{grid-template-columns:1.05fr 1fr}.cafe-highlights strong{font-size:20px}}
+@media print{.cafe-tools-footer,.recipe-tabs,.cafe-peeking-cat,.cafe-symbols{display:none!important}.recipe-pane[hidden]{display:block!important}.cafe-recipe.is-enhanced .recipe-pane>h5{display:block}.cafe-recipe{box-shadow:none;break-inside:avoid}.recipe-pane{min-height:0}#cafe .cafe-body{display:block}.cafe-highlights{break-inside:avoid}}
+.cafe-login-form{display:flex;align-items:center;gap:12px;flex:1;min-width:0;margin:0}
+.cafe-login-form input{min-width:0;flex:1;width:100%;height:48px;border:1px solid #ded6ca;border-radius:7px;background:#fffdf9;padding:12px 15px;font:13px/1.5 var(--sans);color:#343b40}
+.cafe-login-form input:focus-visible{outline:3px solid #ac532e;outline-offset:3px}
+.cafe-login-form input::placeholder{color:#84786c}
+@media(max-width:800px){.cafe-footer-brand{flex-shrink:1}.cafe-footer-brand svg{display:none}.cafe-login-form{flex:1.3}}
+@media(max-width:640px){#quick-panel.is-cafe .cafe-tools-footer{flex-wrap:wrap;gap:8px}.cafe-footer-brand{width:100%}.cafe-footer-brand span{display:none}.cafe-login-form{flex-basis:100%;gap:8px}.cafe-login-form input{height:44px;font-size:13px}.cafe-login{min-height:44px}.cafe-footer-brand strong{font-size:15px}}
+@media(max-height:650px){#quick-panel.is-cafe .cafe-footer-brand,#quick-panel.is-cafe .cafe-footer-cat{display:none}#quick-panel.is-cafe .cafe-tools-footer{margin-bottom:8px;padding:7px 12px;min-height:58px}}
+@media(max-height:650px){#quick-panel.is-cafe .quick-panel-header{padding:12px 18px}#quick-panel.is-cafe .quick-panel-header h2{font-size:25px}#quick-panel.is-cafe .quick-panel-tabs{padding-top:8px;padding-bottom:8px}}

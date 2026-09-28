@@ -45,7 +45,7 @@
 @media(max-width:1100px) and (min-width:641px){.experience-previews{width:51%;top:3%}.preview-name{font-size:18px}.preview-paper{min-height:115px}.preview-detail{font-size:8px}}
 @media(max-width:640px){.experience-previews{width:53%;top:2%;height:110px}.preview-paper{min-height:65px;padding:6px 4px;gap:4px}.preview-name{font-size:12px}.preview-caption{font-size:7px}.quick-preview{top:10px}.game-preview{top:0}}
 /* Full journey: direct chapter selection, no unlocks or completion requirements. */
-.journey-nav{display:flex;gap:7px;padding:9px 24px 12px;overflow-x:auto;border-bottom:1px solid var(--line);background:#f6f3ed}.journey-nav button{flex:1;white-space:nowrap;background:#eee9e0;border:1px solid #d8d0c4;border-radius:7px;padding:10px 13px;font-size:12px;color:#3b4047;min-height:44px}.journey-nav button[aria-current=step]{background:#303f49;color:#fff;border-color:#303f49}.chapter-switch[hidden]{display:none}.chapter-pad{position:absolute;z-index:70;width:18%;transform:translate(-50%,-30%);pointer-events:none;display:grid;justify-items:center}.chapter-pad[hidden]{display:none}.pad-mark{width:100%;height:22px;border-radius:50%;border:2px solid #6d8f72;background:#f7f1e4cc;overflow:hidden;box-shadow:0 3px 0 #c9b89a}.pad-fill{display:block;height:100%;background:#9bbb8c;transform:scaleX(0);transform-origin:left}.chapter-pad.holding .pad-fill{transform:scaleX(1);transition:transform .65s linear}.pad-label{margin:0 0 6px;padding:4px 8px;border-radius:999px;background:#fff8ede6;color:#2c3128;font:600 11px/1.3 var(--sans);opacity:0;white-space:nowrap}.chapter-pad.is-active .pad-label{opacity:1}.room-world.departing{opacity:0;transition:opacity .45s ease}.room-world.arriving{opacity:0}.room-world.arriving.arrive-in{opacity:1;transition:opacity .45s ease}.chapter-travel{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:0 24px 12px;border-top:1px solid var(--line)}.chapter-travel p{font-size:11px;color:var(--muted);text-align:center}.chapter-travel button{font-size:12px;white-space:nowrap}.chapter-travel button:disabled{opacity:.35;cursor:default}.scene-label strong{font-weight:600}.game-header h2{font-size:25px}.speech{max-width:270px;white-space:normal}.scene-loading{position:absolute;inset:0;z-index:200;display:grid;place-items:center;background:#e4dfd6;color:#37434b;font-size:14px;pointer-events:none}.scene-loading[hidden]{display:none}.room-world.loading .object-target,.room-world.loading .player{visibility:hidden}.room-world[data-era=college] .player,.room-world[data-era=fortress] .player,.room-world[data-era=cafe] .player,.room-world[data-era=gamedev] .player{width:18%}
+.journey-nav{display:flex;gap:7px;padding:9px 24px 12px;overflow-x:auto;border-bottom:1px solid var(--line);background:#f6f3ed}.journey-nav button{flex:1;white-space:nowrap;background:#eee9e0;border:1px solid #d8d0c4;border-radius:7px;padding:10px 13px;font-size:12px;color:#3b4047;min-height:44px}.journey-nav button[aria-current=step]{background:#303f49;color:#fff;border-color:#303f49}.chapter-switch[hidden]{display:none}.chapter-pad{position:absolute;width:26%;padding:0;border:0;background:transparent;transform:translate(-50%,-100%);display:grid;justify-items:center;color:#293634;cursor:pointer;touch-action:manipulation}.chapter-pad[hidden]{display:none}.pad-portal{position:relative;display:block;width:100%;aspect-ratio:2/3;filter:drop-shadow(0 0 6px #86dbd278);pointer-events:none}.pad-portal>img,.pad-fill img{display:block;width:100%;height:100%;object-fit:contain}.pad-fill{position:absolute;inset:0;clip-path:inset(100% 0 0);filter:brightness(1.45) saturate(1.3);pointer-events:none}.chapter-pad.holding .pad-fill{clip-path:inset(0);transition:clip-path .65s linear}.pad-label{display:block;margin:0 0 4px;font:600 13px/1.4 var(--sans);text-align:center;text-shadow:0 1px 2px #fff,0 0 5px #fff,0 0 8px #fff;pointer-events:none}.chapter-pad:is(:hover,:focus-visible,.is-active) .pad-portal{filter:drop-shadow(0 0 9px #7dfbe5b0)}.chapter-pad:focus-visible{outline:2px solid #355e59;outline-offset:4px;border-radius:40% 40% 8px 8px}.room-world.departing{opacity:0;transition:opacity .45s ease}.room-world.arriving{opacity:0}.room-world.arriving.arrive-in{opacity:1;transition:opacity .45s ease}.chapter-travel{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:0 24px 12px;border-top:1px solid var(--line)}.chapter-travel p{font-size:11px;color:var(--muted);text-align:center}.chapter-travel button{font-size:12px;white-space:nowrap}.chapter-travel button:disabled{opacity:.35;cursor:default}.scene-label strong{font-weight:600}.game-header h2{font-size:25px}.speech{max-width:270px;white-space:normal}.scene-loading{position:absolute;inset:0;z-index:200;display:grid;place-items:center;background:#e4dfd6;color:#37434b;font-size:14px;pointer-events:none}.scene-loading[hidden]{display:none}.room-world.loading .object-target,.room-world.loading .player{visibility:hidden}.room-world[data-era=college] .player,.room-world[data-era=fortress] .player,.room-world[data-era=cafe] .player,.room-world[data-era=gamedev] .player{width:18%}
 @media(max-width:640px){.journey-nav{padding:8px 12px;gap:5px}.journey-nav button{font-size:11px;padding:9px}.game-header h2{font-size:20px}.chapter-travel{padding:0 14px 8px;gap:10px;flex-wrap:wrap}.chapter-travel p{order:3;width:100%;margin:0}.chapter-travel button{font-size:11px}.scene-label{max-width:65%;font-size:9px}.scene-label span{font-size:9px}.game-header .eyebrow{max-width:190px}.game-scene{min-height:290px;height:43vh}}
 .editor-sidebar button[hidden]{display:none}.room-world[data-era=college] .player,.room-world[data-era=fortress] .player,.room-world[data-era=cafe] .player,.room-world[data-era=gamedev] .player{width:23%}
 .stops a{padding-top:0;border-top:0}.stops img{display:block;width:100%;aspect-ratio:1.65;object-fit:cover;object-position:center 28%;border-radius:9px;border:1px solid #d1c6b8;margin-bottom:13px;transition:transform .2s}.stops a:hover img{transform:translateY(-3px)}.stops a:focus-visible img{outline:2px solid #a45038}@media(max-width:640px){.stops a:last-child{grid-column:auto}.stops a{font-size:12px}.stops img{margin-bottom:8px}}
@@ -71,10 +71,10 @@
 
 /* Approved order: playable chapter index, apartment hero, then Quick View. */
 .journey-strip{padding-top:35px}
-.journey-strip h1{font:400 clamp(26px,3vw,38px)/1.2 var(--serif);margin:0}
+.journey-strip #journey-title{font:400 clamp(26px,3vw,38px)/1.2 var(--serif);margin:0}
 #quick-view .section-heading{margin-bottom:0}
 #quick-view .overview-actions{margin:24px 0 0}
-@media(max-width:640px){.journey-strip h1{margin-top:10px;font-size:29px}.journey-strip{padding-top:26px}}
+@media(max-width:640px){.journey-strip #journey-title{margin-top:10px;font-size:29px}.journey-strip{padding-top:26px}}
 /* Vertical paper-theatre overworld. The route is optional, never an unlock gate. */
 .overworld{position:relative;background:linear-gradient(180deg,#f5ecdd 0%,#eaece1 23%,#e3e9ed 45%,#f4e7d8 68%,#e9e0ef 90%,#f6f3ed 100%);overflow:clip;border-bottom:1px solid #d8d0c1}
 .overworld-heading{max-width:1250px;margin:auto;padding:60px 5% 10px;display:flex;justify-content:space-between;align-items:center;gap:25px}
@@ -169,7 +169,7 @@ body{background:#faf5eb}header{background:#faf5eb}header nav{gap:24px}.journey-s
 [data-hold-entry].holding:before{transform:scaleX(1);transition:transform .65s linear}
 [data-hold-entry].holding{color:#162b20!important}
 #close-game{font-size:12px;white-space:normal;line-height:1.4}
-.desk-photos{position:absolute;z-index:108;left:39%;top:31%;width:14%;height:9%;transform:translate(-50%,-100%)}
+.desk-photos{position:absolute;z-index:108;left:12%;top:40%;width:15%;height:9%;transform:translate(-50%,-100%)}
 .desk-photos[hidden]{display:none}
 .desk-photo{position:absolute;top:0;width:58%;padding:3px 3px 7px;background:#e8d6b5;border:1px solid #7f6750;box-shadow:2px 3px 3px #34272066;cursor:zoom-in;line-height:0;border-radius:2px}
 .desk-photo:nth-child(1){left:0;transform:rotate(-8deg)}
@@ -208,7 +208,7 @@ body{background:#faf5eb}header{background:#faf5eb}header nav{gap:24px}.journey-s
 /* Café accent echoes the supplied blossom-and-lantern interior. */
 #map-cafe .map-number{background:#f1cfca;border-color:#c69e91;color:#754f49}
 #map-cafe .map-note{border-color:#d7bcb1}
-.design-credit{position:absolute;left:23.5%;top:33.5%;width:16px;height:16px;min-width:16px;min-height:16px;padding:1px;border:0;border-radius:3px;background:#111;z-index:8;opacity:.9}
+.design-credit{position:absolute;left:25%;top:19%;width:16px;height:16px;min-width:16px;min-height:16px;padding:1px;border:0;border-radius:3px;background:#111;z-index:8;opacity:.9}
 .design-credit svg{display:block;width:100%;height:100%;fill:#fff}
 .design-credit[hidden]{display:none}
 #design-note{width:min(420px,92vw);border:0;border-radius:12px;padding:18px 20px 16px;background:#f7f1e6}
@@ -217,7 +217,7 @@ body{background:#faf5eb}header{background:#faf5eb}header nav{gap:24px}.journey-s
 .design-tool{margin:0;font:13px var(--sans);color:#3d4650}
 .guest-levi{position:absolute;left:9.5%;top:24%;width:19%;z-index:6;pointer-events:none;object-fit:contain}
 .guest-levi[hidden],.guest-kitten[hidden]{display:none}
-.guest-kitten{position:absolute;z-index:7;pointer-events:none;width:8.5%;aspect-ratio:1;background-image:url('assets/kitten-poses.png');background-repeat:no-repeat;background-size:600% 200%}.campus-cat{width:13%;height:auto;aspect-ratio:380/362;padding:0;min-width:0;transform:translate(-50%,-100%);background:none;filter:drop-shadow(0 4px 2px #4a352440)}.campus-cat img{width:100%;height:auto;display:block;pointer-events:none;transform-origin:center bottom}.campus-cat .target-label{bottom:96%}.campus-cat:hover .target-label{opacity:0}.campus-cat.nearby .target-label,.campus-cat.nearby:hover .target-label,.campus-cat:focus-visible .target-label{opacity:1}#campus-video{position:fixed;inset:0;z-index:40;display:grid;place-items:end center;padding:12px;background:#191d29bf}#campus-video[hidden]{display:none}.campus-video-dismiss{position:absolute;inset:0;border:0;padding:0;background:transparent}.campus-video-sheet{position:relative;z-index:1;width:min(420px,100%);max-height:92dvh;overflow:auto;padding:12px 16px 16px;background:#fff8ed;border-radius:12px}.campus-video-bar{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:12px;margin:-12px -16px 8px;padding:8px 8px 8px 16px;background:#fff8ed}#campus-video-title{margin:0;font:600 16px/1.3 var(--sans)}#close-campus-video{min-width:44px;min-height:44px;padding:8px 14px}#campus-video .egg-video{margin-top:0}.campus-video-cat{position:relative;height:96px;margin:0 0 8px;overflow:hidden}.campus-video-cat img{position:absolute;bottom:0;height:88px;width:auto;transform-origin:center bottom}@media print{#campus-video,.campus-cat{display:none!important}}
+.guest-kitten{position:absolute;z-index:7;pointer-events:none;width:8.5%;aspect-ratio:1;background-image:url('assets/kitten-poses.png');background-repeat:no-repeat;background-size:600% 200%}.campus-cat{width:13%;height:auto;aspect-ratio:380/362;padding:0;min-width:0;transform:translate(-50%,-100%);background:none;filter:drop-shadow(0 4px 2px #4a352440)}.campus-cat canvas{width:100%;height:auto;display:block;pointer-events:none;transform-origin:center bottom}.campus-cat .target-label{bottom:96%}.campus-cat:hover .target-label{opacity:0}.campus-cat.nearby .target-label,.campus-cat.nearby:hover .target-label,.campus-cat:focus-visible .target-label{opacity:1}#campus-video{position:fixed;inset:0;width:100%;height:100dvh;max-width:none;max-height:100dvh;margin:0;border:0;border-radius:0;display:grid;place-items:center;padding:12px;background:transparent}#campus-video::backdrop{background:#191d29bf}#campus-video[hidden]{display:none}.campus-video-dismiss{position:absolute;inset:0;border:0;padding:0;background:transparent}.campus-video-sheet{position:relative;z-index:1;width:min(420px,100%);max-height:92dvh;overflow:auto;padding:12px 16px 16px;background:#fff8ed;border-radius:12px}.campus-video-bar{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:12px;margin:-12px -16px 8px;padding:8px 8px 8px 16px;background:#fff8ed}#campus-video-title{margin:0;font:600 16px/1.3 var(--sans)}#close-campus-video{min-width:44px;min-height:44px;padding:8px 14px}#campus-video .egg-video{margin-top:0}.campus-video-cat{position:relative;height:96px;margin:0 0 8px;overflow:hidden}.campus-video-cat canvas{position:absolute;bottom:0;height:88px;width:auto;transform-origin:center bottom}@media print{#campus-video,.campus-cat{display:none!important}}
 .guest-lumi{left:68%;top:50%;background-position:80% 0}
 .guest-luci{left:30%;top:36%;background-position:80% 100%}
 @media print{#design-note,.design-credit,.guest-levi,.guest-kitten{display:none!important}}
@@ -249,3 +249,58 @@ body{background:#faf5eb}header{background:#faf5eb}header nav{gap:24px}.journey-s
 .fork-list{list-style:none;margin:22px 0 0;padding:0;display:grid;gap:12px}.fork-list li{display:grid;grid-template-columns:minmax(0,1fr) 28px minmax(0,1fr);gap:8px;align-items:center}.fork-list p{margin:0}.fork-list li p:last-child{font-weight:400;color:#4e534c;text-align:left}.fork-line{height:1px;background:#c9beab}
 @media(max-width:640px){.built{padding:24px 6% 36px}.built-blocks{gap:36px}.connector-arms,.connector-arms.three{grid-template-columns:1fr}.connector-arms:before,.connector-arms p:before{display:none}.connector-arms p{width:100%}.fork-list li{grid-template-columns:1fr}.fork-line{width:1px;height:16px;justify-self:start;margin-left:22px}}
 @media print{.site-credits,.built{display:block!important;background:white}.built-hint{display:none!important}.built-fold::details-content{display:block;content-visibility:visible}.connector,.fork-list,.role-list,.chain,.key-row{break-inside:avoid}}
+
+/* Every optional mobile overlay keeps its exit inside the visible viewport. */
+#secret-login{max-height:calc(100dvh - 24px);overflow:auto}
+.secret-login-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;position:sticky;top:-28px;background:#1c2129;padding:4px 0;z-index:1}
+#secret-login button,#egg-note button{min-height:44px}
+/* Keep the complete 3:2 rooms framed without wide empty side gutters. */
+@media(min-width:701px){#game:has(#world[data-era="fulltime"]),#game:has(#world[data-era="fortress"]){width:min(95vw,1007px,calc(97.5vh + 2px))}}
+
+.room-world[data-era="fulltime"] .chapter-pad{width:30%}
+.room-world[data-era="college"] .chapter-pad{width:22%}
+
+/* Supplied résumé: readable HTML plus the unchanged source PDF. */
+.resume-document{display:block;background:#e9e7df}
+.resume-document-heading{margin-bottom:28px}
+.resume-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+.resume-document-paper{background:#fffdf7;border:1px solid var(--line);padding:clamp(20px,4vw,48px);overflow-wrap:anywhere;font-size:15px;line-height:1.65}
+.resume-document-paper h3{font:600 30px/1.3 var(--serif);margin:0 0 8px}
+.resume-document-paper h4{font-size:15px;line-height:1.5;margin:30px 0 12px;padding-bottom:7px;border-bottom:1px solid var(--line);color:#914822}
+.resume-document-paper h5{font-size:16px;line-height:1.5;margin:20px 0 3px}
+.resume-document-paper p{margin:8px 0}
+.resume-document-paper a{text-decoration:underline;text-underline-offset:3px}
+.resume-document-paper ul{padding-left:22px;margin:12px 0}
+.resume-document-paper li{margin:9px 0}
+.resume-dates{color:var(--muted)}
+@media print{body>header,body>main,body>footer,body>.site-credits,body>.built{display:none!important}body>main:has(#resume){display:block!important}main>.section,main>section{display:none!important}main>#resume,.quick-panel-content>#resume{display:block!important;padding:0!important}.quick-panel-content>.section:not(#resume){display:none!important}.resume-document-heading{display:none!important}.resume-document-paper{padding:0;border:0;background:white;font-size:10pt;line-height:1.4}.resume-document-paper h4{margin-top:16px;break-after:avoid}.resume-document-paper h5{break-after:avoid}.resume-document-paper li{margin:5px 0}.resume-document{background:white}}
+
+/* Approved Fortress household: decorative pixels never intercept interactions. */
+#fortress-household{position:absolute;inset:0;width:100%;height:100%;z-index:70;pointer-events:none}
+#fortress-household[hidden]{display:none}
+.room-world[data-era="fortress"] .player{width:30%}
+.room-world[data-era="fortress"] .chapter-pad{width:12%}
+.room-world[data-era="fortress"] .design-credit{left:65%;top:32%;width:44px;height:44px;min-width:44px;min-height:44px;padding:12px;z-index:75;background:#263f4ce6}
+.room-world[data-era="fortress"] .computer-target{width:12%;height:13%;z-index:75}
+@media print{#fortress-household{display:none!important}}
+
+/* Each landing area has one job: map, identity statement, or navigation. */
+.hero .hero-title{max-width:510px;text-wrap:balance}
+.preview-caption{display:flex;flex-direction:column;align-items:flex-start;gap:4px;font-size:12px;line-height:1.45}
+.preview-caption strong{font-weight:600}
+.preview-description{font-size:12px;line-height:1.5;color:#575d59}
+.preview-action{font-size:12px;line-height:1.5}
+.preview-caption .preview-action{align-self:flex-end}
+.quick-preview .preview-paper{min-height:175px}
+@media(max-width:640px){.hero .hero-title{font-size:43px;line-height:1.15}.experience-previews{width:72%;right:5%}.preview-caption{font-size:12px;line-height:1.45;padding:7px 5px;gap:3px}.preview-paper{padding:12px 8px;gap:8px}.preview-name{font-size:19px;line-height:1.2}.preview-paper>span:nth-child(2){font-size:12px;line-height:1.5}.quick-preview .preview-paper{min-height:155px}.preview-description,.preview-action{font-size:12px}.preview-window{aspect-ratio:1.2}}
+
+/* Homepage → game: original CSS blinds adaptation, inspired by Motion Curtains. */
+.entry-curtain:popover-open{position:fixed;inset:0;width:100%;height:100%;max-width:none;max-height:none;margin:0;padding:0;border:0;overflow:hidden;background:transparent;display:grid;grid-template-rows:repeat(var(--slats),1fr);pointer-events:auto}
+.entry-curtain::backdrop{background:transparent}
+.entry-curtain>span{display:block;background:#282d39;transform:scaleY(0);will-change:transform}
+.entry-curtain[data-phase="cover"]>span{transform-origin:top;animation:entry-blinds-cover 320ms cubic-bezier(.65,0,.35,1) both}
+.entry-curtain[data-phase="reveal"]>span{transform-origin:bottom;animation:entry-blinds-reveal 360ms cubic-bezier(.65,0,.35,1) both}
+@keyframes entry-blinds-cover{from{transform:scaleY(0)}to{transform:scaleY(1.015)}}
+@keyframes entry-blinds-reveal{from{transform:scaleY(1.015)}to{transform:scaleY(0)}}
+@media(prefers-reduced-motion:reduce){.entry-curtain[data-phase]>span{animation-duration:0s}}
+@media print{.entry-curtain{display:none!important}}

@@ -32,8 +32,9 @@
     if (loginDialog()) return;
     const login = document.createElement("dialog");
     login.id = "secret-login";
+    login.setAttribute("aria-labelledby", "secret-login-title");
     login.innerHTML = `<form>
-      <p id="secret-login-title">LOGIN</p>
+      <div class="secret-login-bar"><p id="secret-login-title">LOGIN</p><button type="button" id="close-secret-login">Close ×</button></div>
       <label>password <input name="password" type="password" autocomplete="off" spellcheck="false"></label>
       <button type="submit">enter</button>
       <p id="secret-login-status" role="status"></p>
@@ -47,7 +48,8 @@
         <button type="button" id="egg-skip">skip</button>
       </div>`;
     document.body.append(login, egg);
-    login.addEventListener("close", () => opener?.focus?.());
+    login.addEventListener("close", () => { loginAttempt++; opener?.focus?.({preventScroll:true}); });
+    document.getElementById("close-secret-login").addEventListener("click", () => login.close());
     login.querySelector("form").addEventListener("submit", event => {
       event.preventDefault();
       submitLogin(new FormData(event.currentTarget).get("password"));
@@ -69,6 +71,7 @@
     const dialog = loginDialog();
     const status = document.getElementById("secret-login-status");
     status.textContent = "";
+    loginAttempt++;
     dialog.showModal();
     dialog.querySelector("input").value = "";
     dialog.querySelector("input").focus();
@@ -86,7 +89,9 @@
     return egg ? {ok: true, egg} : {ok: false};
   }
 
+  let loginAttempt = 0;
   async function submitLogin(password) {
+    const attempt = ++loginAttempt;
     const status = document.getElementById("secret-login-status");
     const text = String(password || "");
     if (text.length > 80) {
@@ -106,14 +111,17 @@
         if (body && typeof body.ok === "boolean") result = body;
       }
     } catch {}
+    if (attempt !== loginAttempt || !loginDialog().open) return;
     if (!result) {
       try {
         result = await matchLocal(text);
       } catch {
+        if (attempt !== loginAttempt || !loginDialog().open) return;
         status.textContent = "try again";
         return;
       }
     }
+    if (attempt !== loginAttempt || !loginDialog().open) return;
     if (!result.ok) {
       status.textContent = "ACCESS DENIED";
       loginDialog().querySelector("input").value = "";
@@ -155,6 +163,7 @@
     const id = pendingEgg;
     track("easter_egg_started");
     const egg = id ? await loadEgg(id) : null;
+    if (pendingEgg !== id || !eggDialog()?.open) return;
     const held = egg?.start?.({
       mount: document.getElementById("egg-mount"),
       close: closeEgg,
@@ -179,6 +188,31 @@
     }
     const panel = document.getElementById("quick-panel");
     if (panel && !panel.querySelector(".term-prompt")) panel.append(promptButton());
+    if (panel && !panel.querySelector('.cafe-tools-footer')) {
+      const cafeFooter = document.createElement('div');
+      cafeFooter.className = 'cafe-tools-footer';
+      cafeFooter.innerHTML = '<div class="cafe-footer-brand"><svg aria-hidden="true"><use href="#cafe-cat"/></svg><div><strong>Banh Miow Cafe</strong><span>BEHIND THE COUNTER</span></div></div>';
+      const cafeForm = document.createElement('form');
+      cafeForm.className = 'cafe-login-form';
+      cafeForm.setAttribute('aria-label','Optional portfolio login');
+      cafeForm.innerHTML = '<input type="password" name="credential" aria-label="Portfolio credential" placeholder="Enter credential here" autocomplete="off" maxlength="80"><button type="submit" class="button cafe-login">Log in <span aria-hidden="true">→</span></button>';
+      cafeForm.addEventListener('submit', event => {
+        event.preventDefault();
+        const input = cafeForm.elements.credential;
+        const value = input.value;
+        const source = event.submitter || input;
+        input.value = '';
+        openLogin(source);
+        if (value) submitLogin(value);
+      });
+      cafeFooter.append(cafeForm);
+      const cat = document.createElement('div');
+      cat.className = 'cafe-footer-cat';
+      cat.setAttribute('aria-hidden','true');
+      cat.innerHTML = '<svg><use href="#cafe-cat"/></svg>';
+      cafeFooter.append(cat);
+      panel.querySelector(".quick-panel-content").append(cafeFooter);
+    }
     const sidebar = document.querySelector(".editor-sidebar");
     if (sidebar && !sidebar.querySelector("[data-open-login]")) {
       const button = document.createElement("button");
