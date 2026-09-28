@@ -57,7 +57,7 @@ function updateDocuments() {
    const section=document.createElement('section');section.dataset.document=kind;root.append(section);
    add(section,'p',`career / ${kind==='experience'?data.filename:kind+'.md'}`,'document-path');
    add(section,'h2',kind==='experience'?data.heading:kind==='skills'?'Tools & focus':'About this chapter');
-   if(kind==='experience') {add(section,'p',data.label,'document-role');add(section,'p',data.summary);for(const part of data.sections){add(section,'h3',part.heading);add(section,'p',part.body);}}
+   if(kind==='experience') {add(section,'p',data.label,'document-role');add(section,'p',data.summary);for(const part of data.sections){add(section,'h3',part.heading);add(section,'p',part.body);if(part.links?.length){const links=add(section,'p','','career-project-links');for(const item of part.links){if(item.launch){const launch=item.launch.cloneNode(true);const tooltip=launch.querySelector('[role="tooltip"]');tooltip.id+='-career';launch.querySelector('button').setAttribute('aria-describedby',tooltip.id);links.append(launch);continue;}const link=add(links,'a',item.label);link.href=item.href;link.target='_blank';link.rel='noopener noreferrer';}}}}
    else {for(const line of data[kind])add(section,'p',line);}
   }
  }
@@ -550,7 +550,7 @@ function selectFile(name) {
   $('.editor-document').scrollTop = 0;
 }
 document.querySelectorAll('[data-file]').forEach(b => b.addEventListener('click', () => selectFile(b.dataset.file)));
-$('#experience-link').addEventListener('click', e => {e.preventDefault();e.stopPropagation();const section=chapterData[era]?.anchor || 'jpmc';const source=origin;closeGame(false);openQuickView(section,source);});
+$('#experience-link').addEventListener('click', e => {e.preventDefault();e.stopPropagation();const section=chapterData[era]?.anchor || 'jpmc';closeEditor();openQuickView(section,scene);});
 $('#print-resume').addEventListener('click', () => window.print());
 
 // Cat locomotion: small ground-level walks, actual gait frames, then still rests.
@@ -769,7 +769,7 @@ const quickDialog = document.getElementById('quick-panel');
 const quickContent = quickDialog.querySelector('.quick-panel-content');
 const quickSections = ['quick-view','experience','projects','education','resume'].map(id=>document.getElementById(id));
 const quickNames = {'quick-view':'Career overview',experience:'Experience',education:'MDC & FIU',jpmc:'JPMorgan Chase',fortress:'Fortress',cafe:'Banh Miow Cafe',projects:'What if? — Projects',resume:'Résumé'};
-let quickReturnFocus=null, quickScroll=0;
+let quickReturnFocus=null, quickScroll=0, quickGamePaused=false;
 quickSections.forEach(section=>quickContent.append(section));
 
 // Education Quick View: page through the same HTML facts as a small book (no second source).
@@ -889,15 +889,26 @@ function selectQuickSection(id) {
  quickContent.scrollTop=0;
 }
 function openQuickView(id,source) {
- if(!quickDialog.open) {quickReturnFocus=source || document.activeElement;quickScroll=window.scrollY;window.scrollTo({top:quickScroll,behavior:'instant'});selectQuickSection(id);quickDialog.showModal();}
+ if(!quickDialog.open) {quickReturnFocus=source || document.activeElement;quickScroll=window.scrollY;window.scrollTo({top:quickScroll,behavior:'instant'});selectQuickSection(id);quickGamePaused=game.open;
+ if(quickGamePaused){stopWalking();cancelPad();cancelAnimationFrame(frame);}
+ document.getElementById('quick-game-return').textContent=quickGamePaused?'Back to game':'Play the Journey';
+ quickDialog.showModal();}
  else selectQuickSection(id);
  document.getElementById('close-quick-panel').focus({preventScroll:true});
 }
 function closeQuickView() {
  quickDialog.close();
+ if(quickGamePaused && game.open){last=0;cancelAnimationFrame(frame);frame=requestAnimationFrame(animateWorld);}
+ quickGamePaused=false;
  if(quickReturnFocus?.isConnected)quickReturnFocus.focus({preventScroll:true});
  window.scrollTo({top:quickScroll,behavior:'instant'});
 }
+document.getElementById('quick-game-return').addEventListener('click',()=>{
+ if(quickGamePaused){closeQuickView();return;}
+ const selected=quickDialog.querySelector('[data-quick-section][aria-pressed="true"]')?.dataset.quickSection;
+ const chapter=({education:'college',jpmc:'fulltime',fortress:'fortress',cafe:'cafe',projects:'gamedev'})[selected] || 'college';
+ const source=quickReturnFocus;closeQuickView();enterChapter(chapter,source);
+});
 document.getElementById('close-quick-panel').addEventListener('click',closeQuickView);
 quickDialog.addEventListener('cancel',e=>{e.preventDefault();closeQuickView();});
 quickDialog.addEventListener('keydown', e => {
@@ -1084,3 +1095,14 @@ const builtFold=document.querySelector('#built details');
 let builtWasOpen=false;
 window.addEventListener('beforeprint',()=>{builtWasOpen=builtFold.open;builtFold.open=true;});
 window.addEventListener('afterprint',()=>{builtFold.open=builtWasOpen;});
+
+// Deployment details stay available by hover, keyboard focus, or a tap on NEW.
+document.addEventListener('keydown',event=>{
+ if(event.key!=='Escape')return;
+ const launch=[...document.querySelectorAll('.project-launch')].find(el=>!el.classList.contains('tooltip-dismissed') && (el.matches(':hover') || el.contains(document.activeElement)));
+ if(launch){event.preventDefault();event.stopImmediatePropagation();launch.classList.add('tooltip-dismissed');}
+},true);
+for(const eventName of ['pointerover','focusin'])document.addEventListener(eventName,event=>{
+ const launch=event.target.closest('.project-launch');
+ if(launch && !launch.contains(event.relatedTarget))launch.classList.remove('tooltip-dismissed');
+});

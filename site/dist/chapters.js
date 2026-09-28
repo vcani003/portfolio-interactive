@@ -63,7 +63,8 @@
       memories: [],
       sections: projectCards.map((card) => ({
         heading: text(card.querySelector('h3')),
-        body: text(card.querySelector('h3 + p'))
+        body: Array.from(card.querySelectorAll('p:not(.eyebrow)')).filter(p=>!p.querySelector('a')).map(text).join(' '),
+        links: Array.from(card.querySelectorAll('a[href]'), link=>({label:text(link),href:link.href,launch:link.closest('.project-launch')?.cloneNode(true)}))
       }))
     }
   };
