@@ -2,6 +2,10 @@
 
 Local playable portfolio: an illustrated landing, semantic HTML portfolio, printable web résumé, and five playable career chapters.
 
+## Easter eggs
+
+wizardchess
+
 ## Preview
 
 From the repository root:
